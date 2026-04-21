@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaperMint — Văn Phòng Phẩm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --g50: #F0FAF4;
+            --g100: #D6F0E0;
+            --g200: #A8DBBE;
+            --g400: #4CB87A;
+            --g600: #2A8F57;
+            --g800: #14502F;
+            --g900: #0A2F1C;
+            --white: #FFFFFF;
+            --off: #F8FBF9;
+            --ink: #111C16;
+            --muted: #5A7265;
+            --line: rgba(74, 184, 122, 0.18);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--white);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 200;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--line);
+            padding: 0 2.5rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--g800);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--g400);
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: .875rem;
+            font-weight: 500;
+            transition: color .25s;
+        }
+
+        .nav-links a:hover {
+            color: var(--g600);
+        }
+
+        .nav-cta {
+            background: var(--g400);
+            color: #fff;
+            padding: .5rem 1.25rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: .875rem;
+            font-weight: 600;
+            transition: background .25s, transform .2s;
+            white-space: nowrap;
+        }
+
+        .nav-cta:hover {
+            background: var(--g600);
+            transform: translateY(-1px);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            padding: 6rem 2.5rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 3rem;
+            background: var(--off);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -140px;
+            right: -140px;
+            width: 520px;
+            height: 520px;
+            border-radius: 50%;
+            background: var(--g100);
+            opacity: .6;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: 8%;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: var(--g50);
+            pointer-events: none;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--g600);
+            margin-bottom: 1.25rem;
+        }
+
+        .eyebrow::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--g400);
+        }
+
+        .hero-text h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+            line-height: 1.12;
+            color: var(--g900);
+            margin-bottom: 1.25rem;
+            font-weight: 600;
+        }
+
+        .hero-text h1 em {
+            color: var(--g400);
+            font-style: italic;
+        }
+
+        .hero-text p {
+            font-size: 1.05rem;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 420px;
+            margin-bottom: 2.25rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--g400);
+            color: #fff;
+            padding: .875rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: .95rem;
+            text-decoration: none;
+            transition: all .3s;
+            box-shadow: 0 4px 20px rgba(76, 184, 122, .35);
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--g600);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(42, 143, 87, .35);
+        }
+
+        .btn-ghost {
+            color: var(--g600);
+            font-weight: 600;
+            font-size: .95rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            transition: color .25s;
+        }
+
+        .btn-ghost::after {
+            content: '→';
+            transition: transform .25s;
+        }
+
+        .btn-ghost:hover::after {
+            transform: translateX(4px);
+        }
+
+        .hero-visual {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-card-stack {
+            position: relative;
+            width: 420px;
+            height: 420px;
+        }
+
+        .hcard {
+            position: absolute;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 16px 48px rgba(10, 47, 28, .13);
+        }
+
+        .hcard img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hcard-main {
+            width: 310px;
+            height: 350px;
+            top: 35px;
+            left: 55px;
+            z-index: 2;
+            animation: flt 7s ease-in-out infinite;
+        }
+
+        .hcard-back {
+            width: 230px;
+            height: 260px;
+            top: 0;
+            right: 0;
+            z-index: 1;
+            border: 4px solid var(--white);
+            animation: flt 7s 1.8s ease-in-out infinite;
+        }
+
+        .hero-pill {
+            position: absolute;
+            bottom: 16px;
+            left: 0;
+            z-index: 3;
+            background: var(--white);
+            border-radius: 50px;
+            padding: .6rem 1.2rem;
+            box-shadow: 0 8px 28px rgba(10, 47, 28, .12);
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--ink);
+            animation: popIn .6s .8s both;
+        }
+
+        .pill-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--g100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        @keyframes flt {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(.85);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* STATS */
+        .statsbar {
+            background: var(--g800);
+            padding: 2rem 2.5rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .stat-n {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--g200);
+        }
+
+        .stat-l {
+            font-size: .78rem;
+            color: rgba(255, 255, 255, .5);
+            margin-top: .25rem;
+        }
+
+        /* SECTION */
+        .section {
+            padding: 5rem 2.5rem;
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: .75rem;
+        }
+
+        .section-label span {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--g600);
+        }
+
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--g400);
+        }
+
+        .section h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 600;
+            color: var(--g900);
+        }
+
+        .section-sub {
+            font-size: 1rem;
+            color: var(--muted);
+            max-width: 480px;
+            line-height: 1.7;
+            margin-top: .6rem;
+        }
+
+        /* PRODUCTS */
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: .5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: .4rem 1rem;
+            border-radius: 50px;
+            font-size: .82rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid var(--line);
+            color: var(--muted);
+            background: transparent;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all .2s;
+        }
+
+        .tab.active,
+        .tab:hover {
+            background: var(--g400);
+            border-color: var(--g400);
+            color: #fff;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pcard {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            transition: transform .3s, box-shadow .3s;
+            cursor: pointer;
+        }
+
+        .pcard:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 44px rgba(42, 143, 87, .12);
+        }
+
+        .pcard-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background: var(--g50);
+        }
+
+        .pcard-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s;
+        }
+
+        .pcard:hover .pcard-img img {
+            transform: scale(1.06);
+        }
+
+        .pcard-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--g400);
+            color: #fff;
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: .25rem .7rem;
+            border-radius: 50px;
+        }
+
+        .pcard-body {
+            padding: 1.2rem;
+        }
+
+        .pcard-name {
+            font-family: 'Fraunces', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--g900);
+            margin-bottom: .3rem;
+        }
+
+        .pcard-desc {
+            font-size: .82rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .pcard-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pcard-price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--g600);
+        }
+
+        .pcard-btn {
+            background: var(--g50);
+            color: var(--g600);
+            border: 1.5px solid var(--g200);
+            border-radius: 50px;
+            padding: .35rem .9rem;
+            font-size: .8rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all .2s;
+        }
+
+        .pcard-btn:hover {
+            background: var(--g400);
+            border-color: var(--g400);
+            color: #fff;
+        }
+
+        /* FEATURES */
+        .feat-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .feat {
+            background: var(--off);
+            border-radius: 18px;
+            padding: 1.5rem;
+            border: 1px solid var(--line);
+            transition: border-color .25s;
+        }
+
+        .feat:hover {
+            border-color: var(--g200);
+        }
+
+        .feat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--g100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: .9rem;
+        }
+
+        .feat-title {
+            font-weight: 700;
+            font-size: .92rem;
+            color: var(--g900);
+            margin-bottom: .35rem;
+        }
+
+        .feat-desc {
+            font-size: .8rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        /* ORDER */
+        #order {
+            background: var(--g50);
+        }
+
+        .order-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 4rem;
+            align-items: start;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+        }
+
+        .order-info h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--g900);
+            margin-bottom: 1rem;
+        }
+
+        .order-perks {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: .85rem;
+            margin-top: 1.5rem;
+        }
+
+        .order-perks li {
+            display: flex;
+            align-items: flex-start;
+            gap: .75rem;
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .perk-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--g100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--g600);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .order-contact {
+            margin-top: 2rem;
+            padding: 1.25rem;
+            border-radius: 14px;
+            background: var(--white);
+            border: 1px solid var(--line);
+        }
+
+        .order-contact .lbl {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--g600);
+            margin-bottom: .5rem;
+        }
+
+        .order-contact p {
+            font-size: .9rem;
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .order-form-box {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2.25rem;
+            border: 1px solid var(--line);
+            box-shadow: 0 8px 40px rgba(42, 143, 87, .07);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .fg {
+            display: flex;
+            flex-direction: column;
+            gap: .4rem;
+        }
+
+        .fg.full {
+            grid-column: 1/-1;
+        }
+
+        .fg label {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            color: var(--g800);
+        }
+
+        .fg input,
+        .fg select,
+        .fg textarea {
+            padding: .7rem 1rem;
+            border: 1.5px solid var(--line);
+            border-radius: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: .9rem;
+            color: var(--ink);
+            background: var(--off);
+            outline: none;
+            transition: border-color .25s, box-shadow .25s;
+            resize: vertical;
+        }
+
+        .fg input:focus,
+        .fg select:focus,
+        .fg textarea:focus {
+            border-color: var(--g400);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(76, 184, 122, .13);
+        }
+
+        .fg textarea {
+            min-height: 80px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 1.25rem;
+            background: var(--g400);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: .9rem;
+            font-size: .95rem;
+            font-weight: 700;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            cursor: pointer;
+            transition: all .3s;
+            box-shadow: 0 4px 18px rgba(76, 184, 122, .35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--g600);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-note {
+            text-align: center;
+            font-size: .74rem;
+            color: var(--muted);
+            margin-top: .75rem;
+        }
+
+        .success-msg {
+            display: none;
+            text-align: center;
+            padding: 2.5rem 1rem;
+        }
+
+        .success-msg .s-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-msg h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--g900);
+            margin-bottom: .5rem;
+        }
+
+        .success-msg p {
+            color: var(--muted);
+            font-size: .9rem;
+            line-height: 1.7;
+        }
+
+        .success-msg button {
+            margin-top: 1.5rem;
+            background: var(--g400);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: .7rem 2rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: .9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* REVIEWS */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .rcard {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 1.75rem;
+            border: 1px solid var(--line);
+        }
+
+        .rcard-stars {
+            color: var(--g400);
+            font-size: .95rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .rcard-text {
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.75;
+            margin-bottom: 1.25rem;
+            font-style: italic;
+        }
+
+        .rcard-author {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+        }
+
+        .r-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--g100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .85rem;
+            color: var(--g600);
+        }
+
+        .r-name {
+            font-weight: 600;
+            font-size: .88rem;
+            color: var(--ink);
+        }
+
+        .r-role {
+            font-size: .75rem;
+            color: var(--muted);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--g900);
+            color: rgba(255, 255, 255, .6);
+            padding: 3rem 2.5rem 2rem;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-brand .logo {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--g200);
+            margin-bottom: .75rem;
+        }
+
+        .footer-brand p {
+            font-size: .85rem;
+            line-height: 1.8;
+            max-width: 260px;
+        }
+
+        .footer-col h5 {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--g200);
+            margin-bottom: 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+        }
+
+        .footer-col ul a {
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .5);
+            text-decoration: none;
+            transition: color .25s;
+        }
+
+        .footer-col ul a:hover {
+            color: var(--g200);
+        }
+
+        .footer-bottom {
+            font-size: .78rem;
+            text-align: center;
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: var(--g800);
+            color: #fff;
+            padding: .9rem 1.4rem;
+            border-radius: 12px;
+            font-size: .85rem;
+            font-weight: 500;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(8px);
+            transition: all .35s;
+            z-index: 999;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, .18);
+            border-left: 4px solid var(--g400);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* FADE-IN */
+        .fi {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity .65s, transform .65s;
+        }
+
+        .fi.on {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:920px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 6rem 1.5rem 3rem;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin: 0 auto 2rem;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .statsbar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .order-wrap {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .feat-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 0 1.25rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section {
+                padding: 3.5rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="#" class="nav-logo"><span class="logo-dot"></span> PaperMint</a>
+        <ul class="nav-links">
+            <li><a href="#products">Sản phẩm</a></li>
+            <li><a href="#order">Đặt hàng</a></li>
+            <li><a href="#reviews">Đánh giá</a></li>
+            <li><a href="#footer">Liên hệ</a></li>
+        </ul>
+        <a href="#order" class="nav-cta">Đặt hàng ngay →</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-text fi">
+            <div class="eyebrow">Văn phòng phẩm chất lượng cao</div>
+            <h1>Dụng cụ <em>đẹp</em> cho<br>không gian làm việc<br>truyền cảm hứng</h1>
+            <p>Bút, sổ, dụng cụ bàn làm việc — được chọn lọc kỹ lưỡng để giúp bạn tập trung, sáng tạo và làm việc hiệu
+                quả hơn mỗi ngày.</p>
+            <div class="hero-actions">
+                <a href="#order" class="btn-primary">🛒 Đặt hàng ngay</a>
+                <a href="#products" class="btn-ghost">Xem sản phẩm</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-card-stack">
+                <div class="hcard hcard-back">
+                    <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&q=80" alt="Stationery">
+                </div>
+                <div class="hcard hcard-main">
+                    <img src="https://images.unsplash.com/photo-1517971129774-8a2b38fa128e?w=700&q=80" alt="Notebooks">
+                </div>
+                <div class="hero-pill">
+                    <div class="pill-icon">✏️</div>
+                    <div>
+                        <div style="font-size:.7rem;color:var(--muted);font-weight:400;">Giao hàng tận nơi</div>
+                        <div style="color:var(--g600);font-weight:600;">Toàn quốc</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="statsbar">
+        <div class="fi">
+            <div class="stat-n">1.200+</div>
+            <div class="stat-l">Sản phẩm đang có</div>
+        </div>
+        <div class="fi">
+            <div class="stat-n">5.000+</div>
+            <div class="stat-l">Khách hàng tin dùng</div>
+        </div>
+        <div class="fi">
+            <div class="stat-n">24h</div>
+            <div class="stat-l">Xử lý đơn hàng</div>
+        </div>
+        <div class="fi">
+            <div class="stat-n">100%</div>
+            <div class="stat-l">Hàng chính hãng</div>
+        </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <section class="section" id="products" style="background:var(--off);">
+        <div class="products-header">
+            <div>
+                <div class="section-label fi"><span>Danh mục sản phẩm</span></div>
+                <h2 class="fi">Bộ sưu tập nổi bật</h2>
+            </div>
+            <div class="filter-tabs fi">
+                <button class="tab active" onclick="filterTab(this,'all')">Tất cả</button>
+                <button class="tab" onclick="filterTab(this,'but')">Bút</button>
+                <button class="tab" onclick="filterTab(this,'so')">Sổ &amp; Giấy</button>
+                <button class="tab" onclick="filterTab(this,'dc')">Dụng cụ</button>
+                <button class="tab" onclick="filterTab(this,'cs')">Cặp sách &amp; Balo</button>
+
+            </div>
+        </div>
+        <div class="products-grid">
+            <div class="pcard fi" data-cat="but" onclick="chon('Bộ Bút Calligraphy Artline')">
+                <div class="pcard-img">
+                    <img src="/BoBut.webp" alt="Calligraphy pens">
+                    <span class="pcard-tag">Bestseller</span>
+                </div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Bộ Bút Calligraphy Artline</div>
+                    <div class="pcard-desc">6 ngòi kích cỡ khác nhau, mực không lem, lý tưởng cho lettering &amp; thiết
+                        kế.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">185.000đ</div>
+                        <button class="pcard-btn"
+                            onclick="event.stopPropagation();chon('Bộ Bút Calligraphy Artline')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="but" onclick="chon('Bút chì 2B')">
+                <div class="pcard-img"><img src="/butchi2b.webp"><span class="pcard-tag">Cơ bản</span></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Bút chì 2B</div>
+                    <div class="pcard-desc">Nét đậm vừa, phù hợp viết và vẽ cơ bản.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">5.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Bút chì 2B')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+            <div class="pcard fi" data-cat="but" onclick="chon('Bút chì 3B')">
+                <div class="pcard-img"><img src="/butchi3b.webp"><span class="pcard-tag">Đậm hơn</span></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Bút chì 3B</div>
+                    <div class="pcard-desc">Nét đậm, phù hợp sketch và viết nổi bật.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">5.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Bút chì 3B')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="but" onclick="chon('Bút chì 4B')">
+                <div class="pcard-img"><img src="/butchi4b.webp"><span class="pcard-tag">Sketch</span></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Bút chì 4B</div>
+                    <div class="pcard-desc">Nét đậm rõ, thích hợp vẽ và tô bóng.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">6.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Bút chì 4B')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="but" onclick="chon('Bút chì 5B')">
+                <div class="pcard-img"><img src="/butchi5b.webp"><span class="pcard-tag">Rất đậm</span></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Bút chì 5B</div>
+                    <div class="pcard-desc">Nét rất đậm, lý tưởng cho shading chuyên sâu.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">6.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Bút chì 5B')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+            <div class="pcard fi" data-cat="but" onclick="chon('Bút chì HB')">
+                <div class="pcard-img"><img src="/butchiHB.webp"></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Bút chì HB</div>
+                    <div class="pcard-desc">Nét trung bình, tiêu chuẩn học sinh.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">5.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Bút chì HB')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="but" onclick="chon('Bút bi Thiên Long')">
+                <div class="pcard-img"><img src="/butbi.webp"><span class="pcard-tag">Hot</span></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Bút bi Thiên Long</div>
+                    <div class="pcard-desc">Viết trơn, mực đều, giá rẻ quốc dân.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">6.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Bút bi Thiên Long')">Chọn
+                            →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="but" onclick="chon('Bút máy')">
+                <div class="pcard-img"><img src="/butmay.webp"></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Bút máy</div>
+                    <div class="pcard-desc">Viết êm, luyện chữ đẹp, nét thanh đậm.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">120.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Bút máy')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="but" onclick="chon('Bút gel bấm BAOKE')">
+                <div class="pcard-img"><img src="/butgel.webp"><span class="pcard-tag">Mượt</span></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Bút gel bấm BAOKE</div>
+                    <div class="pcard-desc">Mực gel trơn, nét đẹp, viết nhẹ tay.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">12.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Bút gel bấm BAOKE')">Chọn
+                            →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="so" onclick="chon('Sổ Tay Leuchtturm A5 Dotted')">
+                <div class="pcard-img">
+                    <img src="/So.webp" alt="Notebook">
+                    <span class="pcard-tag">Mới về</span>
+                </div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Sổ Tay Leuchtturm A5 Dotted</div>
+                    <div class="pcard-desc">240 trang chấm li, đánh số sẵn, bìa cứng nhiều màu. Chuẩn bullet journal.
+                    </div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">320.000đ</div>
+                        <button class="pcard-btn"
+                            onclick="event.stopPropagation();chon('Sổ Tay Leuchtturm A5 Dotted')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+            <div class="pcard fi" data-cat="so" onclick="chon('Vở ô ly')">
+                <div class="pcard-img"><img src="/vooli.webp"></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Vở ô ly</div>
+                    <div class="pcard-desc">Chuẩn học sinh tiểu học, giấy trắng mịn.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">15.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Vở ô ly')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="so" onclick="chon('Vở kẻ ngang')">
+                <div class="pcard-img"><img src="/voke.webp"></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Vở kẻ ngang</div>
+                    <div class="pcard-desc">Phù hợp ghi chép, học tập mọi cấp.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">18.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Vở kẻ ngang')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="so" onclick="chon('Giấy A4')">
+                <div class="pcard-img"><img src="/a4.webp"><span class="pcard-tag">Phổ biến</span></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Giấy A4</div>
+                    <div class="pcard-desc">In ấn, photo, học tập.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">70.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Giấy A4')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="so" onclick="chon('Giấy A3')">
+                <div class="pcard-img"><img src="/a3.webp"><span class="pcard-tag">In ấn lớn</span></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Giấy A3</div>
+                    <div class="pcard-desc">Kích thước lớn gấp đôi A4, phù hợp vẽ kỹ thuật và in poster.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">120.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Giấy A3')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="so" onclick="chon('Giấy A5')">
+                <div class="pcard-img"><img src="/a5.webp"><span class="pcard-tag">Gọn nhẹ</span></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Giấy A5</div>
+                    <div class="pcard-desc">Nhỏ gọn, tiện ghi chép nhanh, mang theo dễ dàng.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">40.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Giấy A5')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="so" onclick="chon('Giấy A0')">
+                <div class="pcard-img"><img src="/a0.webp"><span class="pcard-tag">Khổ cực lớn</span></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Giấy A0</div>
+                    <div class="pcard-desc">Dùng cho bản vẽ kỹ thuật, poster kích thước lớn.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">200.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Giấy A0')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="so" onclick="chon('Sổ bìa còng')">
+                <div class="pcard-img"><img src="/sobiacong.webp"></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Sổ bìa còng</div>
+                    <div class="pcard-desc">Thay ruột linh hoạt, tiện học tập.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">85.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Sổ bìa còng')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="dc" onclick="chon('Bộ Khay Bàn Acrylic')">
+                <div class="pcard-img">
+                    <img src="/BoKhayBan.webp" alt="Desk organizer">
+                </div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Bộ Khay Bàn Acrylic trong suốt</div>
+                    <div class="pcard-desc">3 ngăn đa năng, acrylic cao cấp, không yellowing, dễ vệ sinh hàng ngày.
+                    </div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">250.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Bộ Khay Bàn Acrylic')">Chọn
+                            →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="dc" onclick="chon('Thước kẻ')">
+                <div class="pcard-img"><img src="/thuoc.webp"></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Thước kẻ</div>
+                    <div class="pcard-desc">Nhựa trong, chia vạch rõ ràng.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">10.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Thước kẻ')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="dc" onclick="chon('Tẩy')">
+                <div class="pcard-img"><img src="/tay.webp"></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Tẩy</div>
+                    <div class="pcard-desc">Tẩy sạch, không rách giấy.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">5.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Tẩy')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="dc" onclick="chon('Bút xoá')">
+                <div class="pcard-img"><img src="/butxoa.webp"></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Bút xoá</div>
+                    <div class="pcard-desc">Xoá nhanh, khô nhanh.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">12.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Bút xoá')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="dc" onclick="chon('Gọt bút chì')">
+                <div class="pcard-img"><img src="/got.webp"></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Gọt bút chì</div>
+                    <div class="pcard-desc">Lưỡi sắc, gọt nhanh.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">8.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Gọt bút chì')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="pcard fi" data-cat="but" onclick="chon('Bút Highlight Stabilo Boss 6 màu')">
+                <div class="pcard-img">
+                    <img src="/Buthighlight.webp" alt="Highlighters">
+                    <span class="pcard-tag">Sale -20%</span>
+                </div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Bút Highlight Stabilo Boss 6 màu</div>
+                    <div class="pcard-desc">Mực nước, không lem mực in laser, màu sắc rực rỡ đồng đều đến cuối bút.
+                    </div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">95.000đ</div>
+                        <button class="pcard-btn"
+                            onclick="event.stopPropagation();chon('Bút Highlight Stabilo Boss 6 màu')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="so" onclick="chon('Giấy Note Sticky Kraft 5x5cm')">
+                <div class="pcard-img">
+                    <img src="/GiayNote.webp" alt="Sticky notes">
+                </div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Giấy Note Sticky Kraft 5×5cm</div>
+                    <div class="pcard-desc">100 tờ/xấp, keo tái dán không để lại vết, chất liệu kraft vintage độc đáo.
+                    </div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">45.000đ</div>
+                        <button class="pcard-btn"
+                            onclick="event.stopPropagation();chon('Giấy Note Sticky Kraft 5x5cm')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="cs" onclick="chon('Cặp sách học sinh')">
+                <div class="pcard-img"><img src="/cap.webp"><span class="pcard-tag">Bền</span></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Cặp sách học sinh</div>
+                    <div class="pcard-desc">Chống nước nhẹ, nhiều ngăn.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">250.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Cặp sách học sinh')">Chọn
+                            →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="cs" onclick="chon('Balo thời trang')">
+                <div class="pcard-img"><img src="/balo.webp"></div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Balo thời trang</div>
+                    <div class="pcard-desc">Gọn nhẹ, phù hợp đi học và đi chơi.</div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">320.000đ</div>
+                        <button class="pcard-btn" onclick="event.stopPropagation();chon('Balo thời trang')">Chọn
+                            →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pcard fi" data-cat="dc" onclick="chon('Combo Dụng Cụ Bàn Học Cao Cấp')">
+                <div class="pcard-img">
+                    <img src="/Bodunghoctap.webp" alt="Stationery set">
+                    <span class="pcard-tag">Combo hot</span>
+                </div>
+                <div class="pcard-body">
+                    <div class="pcard-name">Combo Dụng Cụ học tập</div>
+                    <div class="pcard-desc">Thước, kéo, ghim, kẹp giấy — 12 món inox không gỉ, hộp thiếc sang trọng.
+                    </div>
+                    <div class="pcard-footer">
+                        <div class="pcard-price">420.000đ</div>
+                        <button class="pcard-btn"
+                            onclick="event.stopPropagation();chon('Combo Dụng Cụ Bàn Học Cao Cấp')">Chọn →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" style="background:var(--white);">
+        <div class="feat-layout">
+            <div class="fi">
+                <div class="section-label"><span>Tại sao chọn chúng tôi</span></div>
+                <h2>Cam kết từ<br>từng sản phẩm</h2>
+                <p class="section-sub">Mỗi món đồ được kiểm duyệt kỹ — chỉ những gì thực sự xứng đáng mới lên kệ.</p>
+            </div>
+            <div class="features-grid fi">
+                <div class="feat">
+                    <div class="feat-icon">🎯</div>
+                    <div class="feat-title">Chọn lọc kỹ lưỡng</div>
+                    <div class="feat-desc">Chỉ nhập hàng từ thương hiệu uy tín, kiểm tra từng lô trước khi bán.</div>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">🚚</div>
+                    <div class="feat-title">Giao hàng toàn quốc</div>
+                    <div class="feat-desc">Đối tác GHN &amp; GHTK — 1–3 ngày nội tỉnh, 2–5 ngày tỉnh xa.</div>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">🔄</div>
+                    <div class="feat-title">Đổi trả 7 ngày</div>
+                    <div class="feat-desc">Lỗi sản phẩm hoặc không ưng — đổi/hoàn tiền không cần giải thích.</div>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">💬</div>
+                    <div class="feat-title">Tư vấn nhiệt tình</div>
+                    <div class="feat-desc">Zalo/Facebook phản hồi trong 15 phút, 8h–21h tất cả các ngày.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ORDER -->
+    <section class="section" id="order">
+        <div style="max-width:1000px;margin:0 auto;">
+            <div class="section-label fi"><span>Đặt hàng</span></div>
+            <h2 class="fi">Đặt hàng nhanh — nhận hàng đúng hẹn</h2>
+            <div class="order-wrap">
+                <div class="fi">
+                    <div class="order-info">
+                        <h3>Quy trình đơn giản</h3>
+                        <ul class="order-perks">
+                            <li>
+                                <div class="perk-dot">1</div><span>Điền form — chúng tôi xác nhận qua điện thoại trong
+                                    <strong>30 phút</strong></span>
+                            </li>
+                            <li>
+                                <div class="perk-dot">2</div><span>Thanh toán: <strong>COD</strong> khi nhận hoặc
+                                    <strong>chuyển khoản</strong> trước</span>
+                            </li>
+                            <li>
+                                <div class="perk-dot">3</div><span>Đóng gói cẩn thận, giao tận tay qua GHN / GHTK</span>
+                            </li>
+                            <li>
+                                <div class="perk-dot">4</div><span>Nhận hàng, kiểm tra — không ưng đổi ngay trong
+                                    <strong>7 ngày</strong></span>
+                            </li>
+                        </ul>
+                        <div class="order-contact">
+                            <div class="lbl">Liên hệ trực tiếp</div>
+                            <p>📞 Zalo: <strong>0912 345 678</strong></p>
+                            <p style="margin-top:.3rem;">📧 papermint@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-form-box fi">
+                    <div id="form-area">
+                        <div
+                            style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:600;color:var(--g900);margin-bottom:.3rem;">
+                            Thông tin đặt hàng</div>
+                        <div style="font-size:.82rem;color:var(--muted);margin-bottom:1.5rem;">Điền đầy đủ để chúng tôi
+                            chuẩn bị đơn nhanh nhất 🌿</div>
+
+                        <div style="display:flex;flex-direction:column;gap:1rem;">
+                            <div class="form-row">
+                                <div class="fg"><label>Họ và tên *</label><input type="text" id="name"
+                                        placeholder="Nguyễn Văn A" required></div>
+                                <div class="fg"><label>Số điện thoại *</label><input type="tel" id="phone"
+                                        placeholder="0912 345 678" required></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="fg"><label>Email</label><input type="email" id="email"
+                                        placeholder="email@example.com"></div>
+                                <div class="fg">
+                                    <label>Tỉnh / Thành phố *</label>
+                                    <select id="city" required>
+                                        <option value="">-- Chọn tỉnh thành --</option>
+                                        <option>Hà Nội</option>
+                                        <option>TP. Hồ Chí Minh</option>
+                                        <option>Đà Nẵng</option>
+                                        <option>Cần Thơ</option>
+                                        <option>Hải Phòng</option>
+                                        <option>Tỉnh / Thành khác</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="fg full">
+                                <label>Sản phẩm muốn đặt *</label>
+                                <select id="product" required>
+                                    <option value="">-- Chọn sản phẩm --</option>
+
+                                    <!-- Sản phẩm cũ -->
+                                    <option value="Bộ Bút Calligraphy Artline">Bộ Bút Calligraphy Artline — 185.000đ
+                                    </option>
+                                    <option value="Sổ Tay Leuchtturm A5 Dotted">Sổ Tay Leuchtturm A5 Dotted — 320.000đ
+                                    </option>
+                                    <option value="Bộ Khay Bàn Acrylic">Bộ Khay Bàn Acrylic — 250.000đ</option>
+                                    <option value="Bút Highlight Stabilo Boss 6 màu">Bút Highlight Stabilo Boss 6 màu —
+                                        95.000đ</option>
+                                    <option value="Giấy Note Sticky Kraft 5x5cm">Giấy Note Sticky Kraft 5×5cm — 45.000đ
+                                    </option>
+                                    <option value="Combo Dụng Cụ Bàn Học Cao Cấp">Combo Dụng Cụ Bàn Học Cao Cấp —
+                                        420.000đ</option>
+
+                                    <!-- Bút -->
+                                    <option value="Bút chì 2B">Bút chì 2B — 5.000đ</option>
+                                    <option value="Bút chì 3B">Bút chì 3B — 5.000đ</option>
+                                    <option value="Bút chì 4B">Bút chì 4B — 6.000đ</option>
+                                    <option value="Bút chì 5B">Bút chì 5B — 6.000đ</option>
+                                    <option value="Bút chì HB">Bút chì HB — 5.000đ</option>
+                                    <option value="Bút bi Thiên Long">Bút bi Thiên Long — 6.000đ</option>
+                                    <option value="Bút bi nước">Bút bi nước — 10.000đ</option>
+                                    <option value="Bút máy">Bút máy — 120.000đ</option>
+                                    <option value="Bút gel bấm BAOKE">Bút gel bấm BAOKE — 12.000đ</option>
+
+                                    <!-- Sổ & Giấy -->
+                                    <option value="Vở ô ly">Vở ô ly — 15.000đ</option>
+                                    <option value="Vở kẻ ngang">Vở kẻ ngang — 18.000đ</option>
+                                    <option value="Giấy A4">Giấy A4 — 70.000đ</option>
+                                    <option value="Giấy A3">Giấy A3 — 120.000đ</option>
+                                    <option value="Giấy A5">Giấy A5 — 40.000đ</option>
+                                    <option value="Giấy A0">Giấy A0 — 200.000đ</option>
+                                    <option value="Sổ bìa còng">Sổ bìa còng — 85.000đ</option>
+
+                                    <!-- Dụng cụ -->
+                                    <option value="Hộp đựng bút">Hộp đựng bút — 60.000đ</option>
+                                    <option value="Thước kẻ">Thước kẻ — 10.000đ</option>
+                                    <option value="Tẩy">Tẩy — 5.000đ</option>
+                                    <option value="Bút xoá">Bút xoá — 12.000đ</option>
+                                    <option value="Bút chì kim">Bút chì kim — 25.000đ</option>
+                                    <option value="Ngòi chì kim">Ngòi chì kim — 10.000đ</option>
+                                    <option value="Ruột bút bi">Ruột bút bi — 5.000đ</option>
+                                    <option value="Ngòi bút máy">Ngòi bút máy — 20.000đ</option>
+                                    <option value="Mực bút máy">Mực bút máy — 30.000đ</option>
+                                    <option value="Gọt bút chì">Gọt bút chì — 8.000đ</option>
+
+                                    <!-- Cặp & balo -->
+                                    <option value="Cặp sách">Cặp sách — 250.000đ</option>
+                                    <option value="Balo">Balo — 320.000đ</option>
+
+                                    <!-- Màu -->
+                                    <option value="Bút màu sáp">Bút màu sáp — 50.000đ</option>
+                                    <option value="Bút màu dạ">Bút màu dạ — 65.000đ</option>
+                                    <option value="Bút chì màu">Bút chì màu — 70.000đ</option>
+
+                                    <option value="Sản phẩm khác">Sản phẩm khác (ghi chú bên dưới)</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="fg"><label>Số lượng *</label><input type="number" id="quantity" min="1"
+                                        value="1" required></div>
+                                <div class="fg">
+                                    <label>Thanh toán</label>
+                                    <select id="payment">
+                                        <option value="COD (tiền mặt khi nhận)">COD — tiền mặt khi nhận</option>
+                                        <option value="Chuyển khoản ngân hàng">Chuyển khoản ngân hàng</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="fg full"><label>Địa chỉ giao hàng *</label><input type="text" id="address"
+                                    placeholder="Số nhà, đường, phường/xã, quận/huyện" required></div>
+                            <div class="fg full"><label>Ghi chú thêm</label><textarea id="note"
+                                    placeholder="Màu sắc, kích cỡ cụ thể, yêu cầu đặc biệt..."></textarea></div>
+                        </div>
+                        <button class="submit-btn" id="submit-btn" onclick="submitOrder()">🛒 Gửi đơn hàng</button>
+                        <p class="form-note">🔒 Thông tin bảo mật — chỉ dùng để xử lý đơn hàng</p>
+                    </div>
+
+                    <div class="success-msg" id="success-msg">
+                        <div class="s-icon">🎉</div>
+                        <h4>Đặt hàng thành công!</h4>
+                        <p>Cảm ơn bạn đã tin tưởng PaperMint.<br>Chúng tôi sẽ gọi xác nhận trong <strong>30
+                                phút</strong>.<br>Email xác nhận đã gửi về hộp thư của bạn.</p>
+                        <button onclick="resetForm()">Đặt đơn khác</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="section" id="reviews" style="background:var(--off);">
+        <div class="section-label fi"><span>Khách hàng nói gì</span></div>
+        <h2 class="fi">Đánh giá thật từ người thật</h2>
+        <div class="reviews-grid">
+            <div class="rcard fi">
+                <div class="rcard-stars">★★★★★</div>
+                <div class="rcard-text">"Sổ Leuchtturm chất lượng đúng như mô tả, giấy dày không lem bút gel. Đóng gói
+                    rất cẩn thận, có bọc bubble wrap. Sẽ ủng hộ dài dài!"</div>
+                <div class="rcard-author">
+                    <div class="r-avatar">HV</div>
+                    <div>
+                        <div class="r-name">Hà Vy</div>
+                        <div class="r-role">Bullet Journalist — Hà Nội</div>
+                    </div>
+                </div>
+            </div>
+            <div class="rcard fi">
+                <div class="rcard-stars">★★★★★</div>
+                <div class="rcard-text">"Mua bộ bút Calligraphy làm quà tặng, bạn mình thích lắm. Shop tư vấn nhiệt
+                    tình, giao hàng nhanh hơn dự kiến cả ngày."</div>
+                <div class="rcard-author">
+                    <div class="r-avatar">MT</div>
+                    <div>
+                        <div class="r-name">Minh Tuấn</div>
+                        <div class="r-role">Designer — TP. HCM</div>
+                    </div>
+                </div>
+            </div>
+            <div class="rcard fi">
+                <div class="rcard-stars">★★★★★</div>
+                <div class="rcard-text">"Form đặt hàng dễ dùng, 20 phút đã có nhân viên gọi xác nhận. Bộ khay acrylic
+                    đặt lên bàn trông sang trọng hẳn. Rất recommend!"</div>
+                <div class="rcard-author">
+                    <div class="r-avatar">LA</div>
+                    <div>
+                        <div class="r-name">Lan Anh</div>
+                        <div class="r-role">Content Creator — Đà Nẵng</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="logo">🌿 PaperMint</div>
+                <p>Văn phòng phẩm chất lượng cao — giao hàng toàn quốc, đổi trả 7 ngày, tư vấn tận tình mỗi ngày.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Sản phẩm</h5>
+                <ul>
+                    <li><a href="#products">Bút các loại</a></li>
+                    <li><a href="#products">Sổ tay &amp; Giấy</a></li>
+                    <li><a href="#products">Dụng cụ bàn làm việc</a></li>
+                    <li><a href="#products">Combo tiết kiệm</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Liên hệ</h5>
+                <ul>
+                    <li><a href="#">📞 Zalo: 0912 345 678</a></li>
+                    <li><a href="#">📧 papermint@gmail.com</a></li>
+                    <li><a href="#">📘 Facebook: /papermint.vn</a></li>
+                    <li><a href="#">📷 Instagram: @papermint.vn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2024 PaperMint. Bản quyền thuộc về chúng tôi.</div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================================
+        // CẤU HÌNH — CHỈ CẦN SỬA PHẦN NÀY
+        // ============================================================
+        const CONFIG = {
+            APPS_SCRIPT_URL: "https://script.google.com/home/projects/1BiY7deQcsZDVAuXjVHOXPnYVAbOkD-shswsNrFZctFYBjgLxQE9tbXcP/edit",
+            SHOP_NAME: "PaperMint"
+        };
+        // ============================================================
+
+        // Scroll animation
+        const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }), { threshold: 0.12 });
+        document.querySelectorAll('.fi').forEach(el => io.observe(el));
+
+        // Filter tabs
+        function filterTab(btn, cat) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.pcard').forEach(c => {
+                c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+            });
+        }
+
+        // Select product from card
+        function chon(name) {
+            const sel = document.getElementById('product');
+            for (let o of sel.options) {
+                if (o.value === name || o.value.startsWith(name)) { sel.value = o.value; break; }
+            }
+            document.getElementById('order').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            showToast('✓ Đã chọn: ' + name);
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        async function submitOrder() {
+            const required = { name: 'Họ tên', phone: 'Số điện thoại', city: 'Tỉnh thành', product: 'Sản phẩm', address: 'Địa chỉ' };
+            for (const [id, label] of Object.entries(required)) {
+                if (!document.getElementById(id).value.trim()) {
+                    showToast('⚠️ Vui lòng điền: ' + label);
+                    document.getElementById(id).focus(); return;
+                }
+            }
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true; btn.textContent = '⏳ Đang gửi...';
+
+            const data = {
+                name: document.getElementById('name').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                city: document.getElementById('city').value,
+                product: document.getElementById('product').value,
+                quantity: document.getElementById('quantity').value,
+                payment: document.getElementById('payment').value,
+                address: document.getElementById('address').value.trim(),
+                note: document.getElementById('note').value.trim(),
+                timestamp: new Date().toLocaleString('vi-VN')
+            };
+
+            try {
+                await fetch(CONFIG.APPS_SCRIPT_URL, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            } catch (e) { }
+
+            document.getElementById('form-area').style.display = 'none';
+            document.getElementById('success-msg').style.display = 'block';
+        }
+
+        function resetForm() {
+            document.querySelectorAll('#form-area input, #form-area select, #form-area textarea').forEach(el => {
+                el.type === 'number' ? el.value = '1' : el.value = '';
+            });
+            document.getElementById('success-msg').style.display = 'none';
+            document.getElementById('form-area').style.display = 'block';
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').innerHTML = '🛒 Gửi đơn hàng';
+        }
+    </script>
+</body>
+
+</html>
